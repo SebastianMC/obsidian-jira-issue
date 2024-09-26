@@ -18,6 +18,7 @@ function escapeRegexp(str: string): string {
     return escapeStringRegexp(str).replace(/\//g, '\\/')
 }
 
+// @ts-ignore
 const isEditorInLivePreviewMode = (view: EditorView) => view.state.field(editorLivePreviewField as unknown as StateField<boolean>)
 const isCursorInsideTag = (view: EditorView, start: number, length: number) => {
     const cursor = view.state.selection.main.head
@@ -132,6 +133,7 @@ function buildViewPluginClass(matchDecorator: IMatchDecoratorRef) {
         }
 
         update(update: ViewUpdate): void {
+            // @ts-ignore
             const editorModeChanged = update.startState.field(editorLivePreviewField as unknown as StateField<boolean>) !== update.state.field(editorLivePreviewField as unknown as StateField<boolean>)
             if (update.docChanged || update.startState.selection.main !== update.state.selection.main || editorModeChanged) {
                 this.decorators = matchDecorator.ref ? matchDecorator.ref.createDeco(update.view) : RangeSet.empty
